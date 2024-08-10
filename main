@@ -1,0 +1,88 @@
+import time
+import webbrowser
+from plyer import notification
+
+def watch_browser():
+    times = time.strftime("%H:%M:%S")
+    print("Time Is Recorded :", times)
+
+def notify_suspicious():
+    notification.notify(
+        title="Warning",
+        message="You can't search suspicious websites!",
+    )
+    watch_browser()
+    quit()
+
+def suspicious_website(user):
+    # List of suspicious keywords
+    suspicious_keywords = [
+        "free", "offer", "credit", "winner", "urgent", "claim", "prize", "lottery", "risk-free", "deal",
+        "discount", "bonus", "cash", "limited", "guaranteed", "congratulations", "unlimited", "cheap",
+        "investment", "click", "loan", "debt", "reward", "safe", "no risk", "donation", "payday",
+        "secure", "urgent action", "earn", "investment", "double your money", "risk-free", "free access",
+        "free membership", "bargain", "no cost", "fast cash", "easy money", "amazing", "instant",
+        "order now", "click here", "profit", "refinance", "pre-approved", "lose weight", "buy now",
+        "cheap meds", "online pharmacy", "testimonials", "guaranteed results", "limited time", "no obligation",
+        "act now", "instant savings", "exclusive deal", "winner", "big savings", "increase sales", "special offer",
+        "earn cash", "become a millionaire", "increase traffic", "quick and easy", "as seen on", "work from home",
+        "double your income", "one-time offer", "no experience necessary", "make money fast", "click to win",
+        "get paid", "instant cash", "limited offer", "free trial", "get it now", "get rich", "increase sales",
+        "unsecured loan", "online biz opportunity", "low interest", "satisfaction guaranteed", "no hidden fees",
+        "risk-free trial", "save money", "free gift", "apply now", "limited supply", "double your sales",
+        "get a loan", "limited-time offer", "100%" "satisfaction", "exclusive offer", "extra income", "financial freedom",
+        "risk-free guarantee", "special promotion"
+    ]
+
+    # List of suspicious file extensions
+    suspicious_extensions = [
+        ".exe", ".bat", ".cmd", ".scr", ".pif", ".cam", ".js", ".vbs", ".vbe", ".jse",
+        ".wsf", ".wsh", ".hta", ".cpl", ".msc", ".lnk", ".jar", ".ps1", ".psm1", ".msi",
+        ".msp", ".mst", ".shb", ".shs", ".vxd", ".386", ".sys", ".drv", ".inf", ".gadget",
+        ".dll", ".ocx", ".ax", ".acm", ".ime", ".mui", ".dvr-ms", ".qds", ".vhd", ".vud",
+        ".dat", ".cfg", ".bin", ".url", ".zip", ".rar", ".7z", ".tar", ".gz", ".tgz",
+        ".bz2", ".iso", ".img", ".mds", ".mda", ".mde", ".mdb", ".mdt", ".wmf", ".emf",
+        ".z", ".arj", ".pkg", ".cab", ".ace", ".arc", ".sfx", ".iso", ".udf", ".wim",
+        ".wdf", ".cd", ".gi", ".nrg", ".c2d", ".cue", ".bin", ".daa", ".mdf", ".xpi",
+        ".crx", ".xlam", ".xll", ".xla", ".xlsb", ".xltm", ".xltx", ".xlsm", ".docm",
+        ".dotm", ".ppsm", ".potm", ".ppam", ".jar", ".py", ".rb", ".php", ".asp", ".aspx",
+        ".cer", ".csr", ".crt", ".der", ".p12", ".p7b", ".p7c", ".pem", ".pfx", ".pvk",
+    ]
+
+    for keyword in suspicious_keywords:
+        if keyword in user.lower():
+            return True
+    
+    # in Keyword User Write or Paste suspicious_keyword
+    # if keyword == user lower(Function):
+    # So Return That Is The Suspicious keyword
+
+    for extension in suspicious_extensions:
+        if user.lower().endswith(extension):
+            return True
+    return False
+
+    # in Extesion User Write or Paste suspicious_extension
+    # If User Lower(Function) and endswiht (Function) In extension
+    # So Return That Is The Suspicious extension
+    # When The user !=  suspicious_extension So Return False
+
+
+
+def user_input():
+    while True:
+        print("\n__________Press 'q' for Quit__________\n")
+        user = input("Paste or Enter the Website Name : ")
+
+        if suspicious_website(user):
+            notify_suspicious()
+
+        elif user.lower() == "q":
+            print("Quitting the Website. . . ")
+            exit()
+
+        else:
+            web = webbrowser.open(f"https://{user}")
+            print("This is a safe website.")
+
+user_input()
